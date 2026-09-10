@@ -1,0 +1,12 @@
+{
+  "appId": "com.trackrecord.santri",
+  "appName": "Track Record Santri",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

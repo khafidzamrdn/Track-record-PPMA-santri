@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0d6e5c">
+<title>Track Record Santri</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ SPLASH ============ -->
+<div id="splash" class="screen active">
+  <div class="splash-inner">
+    <div class="logo-big">📖</div>
+    <h1>Track Record Santri</h1>
+    <p>Sistem Pengelolaan Data Santri</p>
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<!-- ============ HOME ============ -->
+<div id="home" class="screen">
+  <header class="app-header">
+    <div class="logo">📖</div>
+    <h1>Track Record Santri</h1>
+    <button id="themeToggleHome" class="icon-btn" title="Tema">🌙</button>
+  </header>
+
+  <div class="home-content">
+    <div class="search-card">
+      <h2>🔍 Cari Santri</h2>
+      <p class="hint">Cari berdasarkan Nama, Kelas, atau ID Santri</p>
+      <div class="search-row">
+        <input type="text" id="publicSearch" placeholder="Ketik nama / kelas / ID...">
+        <button id="btnPublicSearch" class="btn-primary">Cari</button>
+      </div>
+      <div id="publicResult" class="public-result"></div>
+    </div>
+
+    <button id="btnLoginAdmin" class="btn-admin">🔐 Login Admin</button>
+
+    <p class="disclaimer">
+      Data lengkap hanya dapat diakses oleh Admin. Aplikasi ini bekerja offline.
+    </p>
+  </div>
+</div>
+
+<!-- ============ LOGIN PIN ============ -->
+<div id="login" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="home">←</button>
+    <h1>Login Admin</h1>
+    <span style="width:40px"></span>
+  </header>
+
+  <div class="login-content">
+    <div class="lock-icon">🔐</div>
+    <h2>Masukkan PIN Admin</h2>
+    <p class="hint">PIN awal demo: <b>1234</b></p>
+
+    <div class="pin-display" id="pinDisplay">
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+    </div>
+
+    <div id="pinError" class="error-msg"></div>
+
+    <div class="numpad">
+      <button data-num="1">1</button>
+      <button data-num="2">2</button>
+      <button data-num="3">3</button>
+      <button data-num="4">4</button>
+      <button data-num="5">5</button>
+      <button data-num="6">6</button>
+      <button data-num="7">7</button>
+      <button data-num="8">8</button>
+      <button data-num="9">9</button>
+      <button data-num="del" class="numpad-action">⌫</button>
+      <button data-num="0">0</button>
+      <button data-num="ok" class="numpad-action numpad-ok">✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div id="dashboard" class="screen">
+  <header class="app-header">
+    <div class="logo small">📖</div>
+    <h1>Dashboard Admin</h1>
+    <button id="themeToggleDash" class="icon-btn" title="Tema">🌙</button>
+  </header>
+
+  <div class="dashboard-content">
+    <div class="stats-grid">
+      <div class="stat-card c-blue">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value" id="statSantri">0</div>
+        <div class="stat-label">Total Santri</div>
+      </div>
+      <div class="stat-card c-green">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value" id="statPrestasi">0</div>
+        <div class="stat-label">Prestasi</div>
+      </div>
+      <div class="stat-card c-red">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-value" id="statPelanggaran">0</div>
+        <div class="stat-label">Pelanggaran</div>
+      </div>
+      <div class="stat-card c-orange">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value" id="statTagihan">Rp 0</div>
+        <div class="stat-label">Belum Dibayar</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">Menu Cepat</h3>
+    <div class="menu-grid">
+      <button class="menu-card" id="menuTambah">
+        <span class="menu-icon">➕</span>
+        <span>Tambah Santri</span>
+      </button>
+      <button class="menu-card" id="menuDaftar">
+        <span class="menu-icon">📋</span>
+        <span>Daftar Santri</span>
+      </button>
+      <button class="menu-card" id="menuTagihan">
+        <span class="menu-icon">💰</span>
+        <span>Tagihan</span>
+      </button>
+      <button class="menu-card" id="menuPrestasi">
+        <span class="menu-icon">🏆</span>
+        <span>Prestasi & Pelanggaran</span>
+      </button>
+      <button class="menu-card" id="menuSetting">
+        <span class="menu-icon">⚙️</span>
+        <span>Pengaturan</span>
+      </button>
+      <button class="menu-card danger" id="menuLogout">
+        <span class="menu-icon">🚪</span>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FORM SANTRI ============ -->
+<div id="formSantri" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="dashboard">←</button>
+    <h1 id="formTitle">Tambah Santri</h1>
+    <span style="width:40px"></span>
+  </header>
+
+  <form id="santriForm" class="form-content">
+    <input type="hidden" id="fEditId">
+
+    <label>ID Santri</label>
+    <input type="text" id="fId" required placeholder="Contoh: S001">
+
+    <label>Nama Lengkap</label>
+    <input type="text" id="fNama" required placeholder="Nama santri">
+
+    <label>Kelas</label>
+    <input type="text" id="fKelas" required placeholder="Contoh: XI-A">
+
+    <label>Alamat</label>
+    <textarea id="fAlamat" rows="2" required placeholder="Alamat lengkap"></textarea>
+
+    <label>Nomor Wali (opsional)</label>
+    <input type="tel" id="fWali" placeholder="08xxxxxxxxxx">
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" data-back="dashboard">Batal</button>
+      <button type="submit" class="btn-primary">Simpan</button>
+    </div>
+  </form>
+</div>
+
+<!-- ============ DAFTAR SANTRI ============ -->
+<div id="daftarSantri" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="dashboard">←</button>
+    <h1>Daftar Santri</h1>
+    <button class="icon-btn" id="btnAddFromList">➕</button>
+  </header>
+
+  <div class="list-content">
+    <input type="text" id="listSearch" class="search-input" placeholder="🔍 Cari nama / kelas / ID...">
+
+    <div class="filter-row">
+      <select id="filterKelas" class="filter-select">
+        <option value="">Semua Kelas</option>
+      </select>
+      <select id="filterStatus" class="filter-select">
+        <option value="">Semua Status</option>
+        <option value="prestasi">Punya Prestasi</option>
+        <option value="pelanggaran">Punya Pelanggaran</option>
+        <option value="tagihan">Tagihan Belum Lunas</option>
+      </select>
+    </div>
+
+    <div class="filter-row">
+      <select id="sortBy" class="filter-select">
+        <option value="namaAZ">Nama A–Z</option>
+        <option value="namaZA">Nama Z–A</option>
+        <option value="terbaru">Terbaru</option>
+        <option value="terlama">Terlama</option>
+      </select>
+    </div>
+
+    <div id="santriList" class="santri-list"></div>
+  </div>
+</div>
+
+<!-- ============ DETAIL SANTRI ============ -->
+<div id="detailSantri" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="daftarSantri">←</button>
+    <h1>Detail Santri</h1>
+    <button class="icon-btn" id="btnEditDetail">✏️</button>
+  </header>
+
+  <div class="detail-content">
+    <div class="detail-header">
+      <div class="detail-avatar" id="dAvatar">S</div>
+      <h2 id="dNama">Nama Santri</h2>
+      <p>Kelas: <b id="dKelas">-</b></p>
+      <p>Alamat: <span id="dAlamat">-</span></p>
+      <p id="dWaliWrap">Wali: <span id="dWali">-</span></p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="profil">📋 Profil</button>
+      <button class="tab" data-tab="prestasi">🏆 Prestasi</button>
+      <button class="tab" data-tab="pelanggaran">⚠️ Pelanggaran</button>
+      <button class="tab" data-tab="tagihan">💰 Tagihan</button>
+    </div>
+
+    <div id="tab-profil" class="tab-panel active">
+      <div class="info-list">
+        <div class="info-item"><span>ID Santri</span><b id="pId">-</b></div>
+        <div class="info-item"><span>Nama</span><b id="pNama">-</b></div>
+        <div class="info-item"><span>Kelas</span><b id="pKelas">-</b></div>
+        <div class="info-item"><span>Alamat</span><b id="pAlamat">-</b></div>
+        <div class="info-item"><span>Wali</span><b id="pWali">-</b></div>
+      </div>
+      <button class="btn-danger full" id="btnHapusSantri">🗑️ Hapus Santri</button>
+    </div>
+
+    <div id="tab-prestasi" class="tab-panel">
+      <button class="btn-add-item" data-add="prestasi">➕ Tambah Prestasi</button>
+      <div id="listPrestasi"></div>
+    </div>
+
+    <div id="tab-pelanggaran" class="tab-panel">
+      <button class="btn-add-item" data-add="pelanggaran">➕ Tambah Pelanggaran</button>
+      <div id="listPelanggaran"></div>
+    </div>
+
+    <div id="tab-tagihan" class="tab-panel">
+      <button class="btn-add-item" data-add="tagihan">➕ Tambah Tagihan</button>
+      <div id="totalTagihanBelum" class="total-tagihan"></div>
+      <div id="listTagihan"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HALAMAN TAGIHAN GLOBAL ============ -->
+<div id="pageTagihan" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="dashboard">←</button>
+    <h1>Semua Tagihan</h1>
+    <span style="width:40px"></span>
+  </header>
+  <div class="list-content">
+    <div class="filter-row">
+      <select id="filterTagihanStatus" class="filter-select">
+        <option value="">Semua</option>
+        <option value="lunas">Lunas</option>
+        <option value="belum">Belum Lunas</option>
+      </select>
+    </div>
+    <div id="globalTagihanList"></div>
+  </div>
+</div>
+
+<!-- ============ HALAMAN PRESTASI & PELANGGARAN GLOBAL ============ -->
+<div id="pagePrestasi" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="dashboard">←</button>
+    <h1>Prestasi & Pelanggaran</h1>
+    <span style="width:40px"></span>
+  </header>
+  <div class="list-content">
+    <div class="tabs">
+      <button class="tab active" id="tabAllPrestasi">🏆 Prestasi</button>
+      <button class="tab" id="tabAllPelanggaran">⚠️ Pelanggaran</button>
+    </div>
+    <div id="globalPrestasiList"></div>
+  </div>
+</div>
+
+<!-- ============ PENGATURAN ============ -->
+<div id="pengaturan" class="screen">
+  <header class="app-header">
+    <button class="icon-btn back-btn" data-back="dashboard">←</button>
+    <h1>Pengaturan</h1>
+    <span style="width:40px"></span>
+  </header>
+
+  <div class="settings-content">
+    <h3 class="section-title">🔐 Keamanan</h3>
+    <button class="setting-btn" id="btnGantiPin">Ganti PIN Admin</button>
+    <label class="setting-row">
+      <span>Auto Logout (5 menit)</span>
+      <input type="checkbox" id="autoLogoutToggle" checked>
+    </label>
+
+    <h3 class="section-title">💾 Backup & Restore</h3>
+    <button class="setting-btn" id="btnExport">📤 Export Data (JSON)</button>
+    <label class="setting-btn" for="importFile">📥 Import Data (JSON)</label>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button class="setting-btn danger" id="btnHapusDemo">🗑️ Hapus Data Demo</button>
+    <button class="setting-btn danger" id="btnHapusSemua">⚠️ Hapus Semua Data</button>
+
+    <h3 class="section-title">ℹ️ Info</h3>
+    <p class="info-text">
+      <b>Track Record Santri v1.0</b><br>
+      Aplikasi offline penyimpanan data santri.<br><br>
+      <b>Catatan Keamanan:</b> PIN pada aplikasi offline berbasis JavaScript bukan sistem keamanan tingkat tinggi.
+      Untuk data sensitif, gunakan backend dengan autentikasi yang benar.
+    </p>
+  </div>
+</div>
+
+<!-- ============ MODAL UMUM ============ -->
+<div id="modal" class="modal-overlay">
+  <div class="modal-box">
+    <h3 id="modalTitle">Konfirmasi</h3>
+    <p id="modalMessage">Pesan</p>
+    <div class="modal-actions">
+      <button id="modalCancel" class="btn-secondary">Batal</button>
+      <button id="modalOk" class="btn-primary">Ya</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL ITEM (prestasi/pelanggaran/tagihan) ============ -->
+<div id="itemModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3 id="itemModalTitle">Tambah Item</h3>
+    <div id="itemForm"></div>
+    <div class="modal-actions">
+      <button id="itemCancel" class="btn-secondary">Batal</button>
+      <button id="itemSave" class="btn-primary">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+  </html>

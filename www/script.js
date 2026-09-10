@@ -208,9 +208,7 @@ function loadDemoIfFirstTime() {
    SPLASH
    ============================================================ */
 function initSplash() {
-  setTimeout(() => {
     showScreen('home');
-  }, 1500);
 }
 
 /* ============================================================
